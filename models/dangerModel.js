@@ -8,8 +8,8 @@ const dangerSchema = new Schema({
         enum: ['animale-pericoloso', 'calamita-ambientale', 'sentiero-inagibile', 'altro'],
         required: true
     },
-    coordinates: {type: [Number], required: true, validate: [coordValidator, '{PATH} doesent have 2 elements']},
-    sendTimestamp: {type: Date, required: true, validate: [dateValidator, 'Must be a past date, got {VALUE}'], immutable: true},
+    coordinates: {type: [Number], required: true, validate: [hasTwoElements, '{PATH} doesent have 2 elements']},
+    sendTimestamp: {type: Date, required: true, validate: [isPastDate, 'Must be a past date, got {VALUE}'], immutable: true},
     shortDescription: {type: String, required: true, minLenght: 10},
     userID: {type: mongoose.Schema.Types.ObjectId, ref:'User', required: true, immutable: true},
     status: {
@@ -20,13 +20,13 @@ const dangerSchema = new Schema({
     expiration: {type: Date, default: null}
 })
 
-function dateValidator(val) { 
+function isPastDate(val) { 
     const now = new Date()
     now.setSeconds(now.getSeconds() + 1)
     return val <= now
 }
 
-function coordValidator(val) {
+function hasTwoElements(val) {
     return val.length == 2
 }
 

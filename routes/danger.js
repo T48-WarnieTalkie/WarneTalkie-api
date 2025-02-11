@@ -46,8 +46,10 @@ router.get('/:dangerId', asyncHandler(async (req, res, next) => {
 }))
 
 router.patch('/:dangerID', authorizeUser, asyncHandler(async (req, res, next) => {
-  if(req.user.isModerator) {
-    if(!mongoose.Types.ObjectId.isValid(req.params.dangerID)) {throw createHttpError(404, "Danger not found")}
+  if(!req.user.isModerator) {
+    throw createHttpError(403)
+  }
+  if(!mongoose.Types.ObjectId.isValid(req.params.dangerID)) {throw createHttpError(404, "Danger not found")}
     const danger = await Danger.findByIdAndUpdate(req.params.dangerID, req.body, {
       runValidators: true, new: true
     })
@@ -60,9 +62,6 @@ router.patch('/:dangerID', authorizeUser, asyncHandler(async (req, res, next) =>
       throw createHttpError(404, "Danger not found")
     }
     res.status(204).send()
-  } else {
-    throw createHttpError(403, "Trying to modify danger without being a moderator")
-  }
 }))
 
 router.delete('/:dangerID', authorizeUser, asyncHandler(async (req, res, next) => {

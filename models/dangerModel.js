@@ -10,7 +10,7 @@ const dangerSchema = new Schema({
     },
     coordinates: {type: [Number], required: true, validate: [coordValidator, '{PATH} doesent have 2 elements']},
     sendTimestamp: {type: Date, required: true, validate: [dateValidator, 'Must be a past date, got {VALUE}'], immutable: true},
-    shortDescription: {type: String, required: true, maxLenght: 120},
+    shortDescription: {type: String, required: true, minLenght: 10},
     userID: {type: mongoose.Schema.Types.ObjectId, ref:'User', required: true, immutable: true},
     status: {
         type: String,
@@ -21,7 +21,9 @@ const dangerSchema = new Schema({
 })
 
 function dateValidator(val) { 
-    return val <= new Date()
+    const now = new Date()
+    now.setSeconds(now.getSeconds() + 1)
+    return val <= now
 }
 
 function coordValidator(val) {

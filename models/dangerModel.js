@@ -9,9 +9,9 @@ const dangerSchema = new Schema({
         required: true
     },
     coordinates: {type: [Number], required: true, validate: [coordValidator, '{PATH} doesent have 2 elements']},
-    sendTimestamp: {type: Date, required: true, validate: [dateValidator, 'Must be a past date, got {VALUE}']},
+    sendTimestamp: {type: Date, required: true, validate: [dateValidator, 'Must be a past date, got {VALUE}'], immutable: true},
     shortDescription: {type: String, required: true, maxLenght: 120},
-    userID: {type: mongoose.Schema.Types.ObjectId, ref:'User', required: true},
+    userID: {type: mongoose.Schema.Types.ObjectId, ref:'User', required: true, immutable: true},
     status: {
         type: String,
         enum: ['waiting-approval', 'approved', 'rejected', 'expired'],

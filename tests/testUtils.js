@@ -15,7 +15,7 @@ exports.authModerator = async () => {
   return resp.body
 }
 
-exports.postDanger = async () => {
+exports.postDanger = async (status) => {
   const respAuth = this.authStandardUser()
   const resp = await request(app)
   .post('/api/v1/dangers/')
@@ -25,7 +25,7 @@ exports.postDanger = async () => {
     sendTimestamp: new Date(),
     shortDescription: "Sample description of a danger",
     userID: respAuth.userID,
-    status: 'waiting-approval'
+    status: 'status'
   })
   return resp.headers['Location']
 }

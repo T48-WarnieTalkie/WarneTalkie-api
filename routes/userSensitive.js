@@ -16,10 +16,10 @@ router.post('/', asyncHandler(async (req, res, next) => {
   })
   try {await newUserSensitive.validate()}
   catch(e) {throw createHttpError(400, e.message)}
-  let existingUserSensitive = await UserSensitive.findOne({
+  let existingUserSensitive = await UserSensitive.find({
     $or: [{cellphoneNumber: req.body.cellphoneNumber}, {emailAddress: req.body.emailAddress}]
   }).exec();
-  if(existingUserSensitive) {throw createHttpError(409)}
+  if(existingUserSensitive.length>0) {throw createHttpError(409)}
   await newUserSensitive.save()
   res.location(newUserSensitive._id)
   res.setHeader('Access-Control-Expose-Headers', 'Location')

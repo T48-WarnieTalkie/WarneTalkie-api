@@ -8,9 +8,9 @@ const authorizeUser = asyncHandler(async (req, res, next) => {
   if(token == null){ throw createHttpError(401)}
 
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, data) => {
-      if(err) {throw createHttpError(401)}
-      req.user = data;
-      next()
+    if(err) {throw createHttpError(401)}
+    req.user = data;
+    next()
   })
 })
 

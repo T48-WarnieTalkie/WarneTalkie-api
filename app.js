@@ -6,7 +6,6 @@ var morgan = require('morgan')
 require('dotenv').config();
 
 const dangerRouter = require('./routes/danger');
-const dangerCommentRouter = require('./routes/dangerComment')
 const userRouter = require('./routes/user');
 const authenticationRouter = require('./routes/authentication')
 const userSensitiveRouter = require('./routes/userSensitive')
@@ -34,7 +33,6 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(refreshStatuses)
 
 app.use('/api/v1/dangers', dangerRouter);
-app.use('/api/v1/dangerComments', dangerCommentRouter)
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/userSensitives', userSensitiveRouter)
 app.use('/api/v1/authentications', authenticationRouter)

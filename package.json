@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "npm install",
-    "test": "node wipedb.js && node populatedbtest.js && jest --detectOpenHandles",
+    "test": "node populatedbtest.js && jest --detectOpenHandles",
     "reset": "node wipedb.js && node populatedbtest.js"
   },
   "dependencies": {

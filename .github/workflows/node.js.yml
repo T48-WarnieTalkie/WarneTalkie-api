@@ -2,7 +2,7 @@ name: Node.js CI
 on:
   push:
     branches: [ main ]
-  on: workflow_dispatch
+  workflow_dispatch:
 
 env:
   ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}

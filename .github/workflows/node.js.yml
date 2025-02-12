@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -25,7 +25,7 @@ jobs:
     needs: test
     environment: production 
     env:
-      SUPER_SECRET: ${{ secrets.SUPER_SECRET }}
+      ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
       DB_URL: ${{ secrets.DB_URL }}
     steps:
       - name: Wait for Render Deployment

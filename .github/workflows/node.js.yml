@@ -6,13 +6,13 @@ on:
 env:
   ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
   DB_URL: ${{ secrets.DB_URL }}
-
+  
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [14.x]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -27,6 +27,10 @@ jobs:
   deploy:
     name: Wait for Deploy
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      deployments: write
     needs: test
     environment: production 
     steps:
